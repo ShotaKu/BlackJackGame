@@ -8,6 +8,7 @@ namespace BlackJackGame.Models
     {
         public int GameID;
         public string DealerName;
+        public int DealerBet;
         public DateTime CreateDateTime;
     }
     [Serializable]

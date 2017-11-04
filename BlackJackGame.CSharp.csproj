@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.5.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -93,18 +91,22 @@
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\PlayerPerfController.cs" />
     <Compile Include="Assets\PvP\ButtonManager.cs" />
+    <Compile Include="Assets\PvP\GameListUI\GameListLoader.cs" />
+    <Compile Include="Assets\PvP\GameListUI\ListUI.cs" />
+    <Compile Include="Assets\PvP\GameListUI\PvPUIButtonManager.cs" />
     <Compile Include="Assets\PvP\PvP.cs" />
     <Compile Include="Assets\Resources\CardPrefab\Animation\DeckAnimation.cs" />
     <Compile Include="Assets\Resources\Prefab\AutoDestroy.cs" />
     <Compile Include="Assets\Resources\Prefab\FireWorksMaker.cs" />
     <Compile Include="Assets\Resources\Prefab\GameListItem.cs" />
+    <Compile Include="Assets\Resources\Prefab\GameListItemBuilder.cs" />
+    <Compile Include="Assets\SetEnable.cs" />
     <Compile Include="Assets\StartPage\CheckingEmailFormat.cs" />
     <Compile Include="Assets\StartPage\CheckingNameFormat.cs" />
     <Compile Include="Assets\StartPage\GetPostFormBuilder.cs" />
     <Compile Include="Assets\StartPage\ModeSelector.cs" />
     <Compile Include="Assets\StartPage\RegistorOrCancel.cs" />
     <Compile Include="Assets\StartPage\RegistrationButton.cs" />
-    <Compile Include="Assets\StartPage\SetEnable.cs" />
     <Compile Include="Assets\VsComputer\BetChangeSlider.cs" />
     <Compile Include="Assets\VsComputer\ButtonUI.cs" />
     <Compile Include="Assets\VsComputer\DealButton.cs" />

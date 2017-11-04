@@ -12,6 +12,18 @@ public class GetPost : MonoBehaviour
         StartCoroutine(WaitForRequest(www));
         return www;
     }
+    /// <summary>
+    /// GET request to url. Please attach input to URL before call this function
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="callBack"></param>
+    /// <returns></returns>
+    public WWW GET(string url, Action<WWW> callBack = null)
+    {
+        WWW www = new WWW(url);
+        StartCoroutine(WaitForRequest(www,callBack));
+        return www;
+    }
 
     public WWW POST(string url, Dictionary<string, string> post, Action<WWW> callBack = null)
     {

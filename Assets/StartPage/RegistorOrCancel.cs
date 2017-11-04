@@ -1,8 +1,8 @@
-﻿using Result;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using DBErrorCodeAndMessages;
 using UnityEngine.UI;
+using BlackJackGame.Models;
 
 public class RegistorOrCancel : MonoBehaviour {
 
@@ -17,7 +17,7 @@ public class RegistorOrCancel : MonoBehaviour {
     public void OnClickRegistor()
     {
         GetPostFormBuilder builder = new GetPostFormBuilder();
-        Dictionary<string, string> postData = builder.getRegistrationPostFormat(Email.text, Name.text);
+        var postData = builder.getRegistrationPostFormat(Email.text, Name.text);
 
         GetPost getPost = transform.GetComponent<GetPost>();
 
@@ -27,7 +27,7 @@ public class RegistorOrCancel : MonoBehaviour {
             //ResponceFormBuilder resBuilder = new ResponceFormBuilder();
             print(result.text);
             RegistrationResult player = ResponceFormBuilder.getRegistrationResult(result.text);
-            ErrorCodes error = new ErrorCodes();
+            ErrorCodes error = new ErrorCodes("");
             print(player.Message);
 
             if (error.isError(player.ErrorCode))
