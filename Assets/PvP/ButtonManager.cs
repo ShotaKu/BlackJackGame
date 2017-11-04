@@ -12,7 +12,7 @@ public class ButtonManager : MonoBehaviour {
         
     }
 
-    public void OnClickJpinGame()
+    public void OnClickJoinGame()
     {
 
     }
