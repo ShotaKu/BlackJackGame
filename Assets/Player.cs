@@ -168,5 +168,10 @@ namespace BlackJackClass
 
         public void clearHand()
         { hands.Clear(); }
+
+        public Card[] GetHand()
+        {
+            return hands.ToArray(); ;
+        }
     }
 }

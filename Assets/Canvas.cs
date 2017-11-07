@@ -8,6 +8,7 @@ public class Canvas : MonoBehaviour
     void Start()
     {
         _canvas = this;
+        //PlayerPerfController.SavePlayerID(5);
     }
 
     public static Transform GetCanvas()

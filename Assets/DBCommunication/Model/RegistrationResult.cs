@@ -24,6 +24,7 @@ namespace BlackJackGame.Models
     [Serializable]
     public class RegistrationResult : Result
     {
+        public long PlayerID;
         public string FriendCode;
     }
 }

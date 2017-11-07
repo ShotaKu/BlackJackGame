@@ -39,6 +39,7 @@ public class GetPost : MonoBehaviour
 
     private IEnumerator WaitForRequest(WWW www, Action<WWW> onSuccess = null)
     {
+        print("Connecting...");
         yield return www;
 
         // check for errors

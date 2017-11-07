@@ -5,6 +5,7 @@ public class HitButton : MonoBehaviour {
 
     
     private VsComputer ThisBattle = null;
+    private PvP ThisPvP = null;
     public void OnClick()
     {
         if (ThisBattle == null)
@@ -13,7 +14,16 @@ public class HitButton : MonoBehaviour {
         if (!ThisBattle.PlayerHit())
             ThisBattle.Stand();
 
-        
+
+    }
+    public void OnClickPvP()
+    {
+        PvP ThisPvP = PvP.getThisBattle();
+
+        if (!ThisPvP.PlayerHit())
+            ThisPvP.Stand();
+
+
     }
 
 }

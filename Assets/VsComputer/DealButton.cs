@@ -2,12 +2,12 @@
 
 public class DealButton : MonoBehaviour
 {
-    
-    //[SerializeField]
-    //ButtonUI Controller = null;
-    
     public void OnClick()
     {
         VsComputer.getThisBattle().Deal();
+    }
+    public void OnClickPvP()
+    {
+        PvP.getThisBattle().Deal();
     }
 }

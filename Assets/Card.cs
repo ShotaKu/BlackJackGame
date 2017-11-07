@@ -65,6 +65,18 @@ namespace BlackJackClass
             return f;
         }
 
+        public static string[] CardsToString(Card[] hand)
+        {
+            string[] cards = new string[hand.Length];
+
+            int i = 0;
+            foreach (Card card in hand)
+            {
+                cards[i] = card.ToString();
+                i++;
+            }
+            return cards;
+        }
 
         public override string ToString()
         {

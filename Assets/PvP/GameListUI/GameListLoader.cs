@@ -39,6 +39,7 @@ public class GameListLoader : MonoBehaviour {
             {
                 if (error.isError(lists.GameResults[0].ErrorCode))      //ERROR!
                 {
+                    print("Error");
                     MessageWindow.setErrorMessage(lists.GameResults[0].Message);
                     MessageWindow.setActive(true);
                 }
@@ -47,6 +48,7 @@ public class GameListLoader : MonoBehaviour {
                     //GameListItemBuilder gItemBuilder = new GameListItemBuilder();
                     foreach (GameResult game in lists.GameResults)
                     {
+                        print("Success");
                         RectTransform prefab = Instantiate(itemPrefab) as RectTransform;
                         print("isPrefabNull = " + (prefab == null));
                         prefab.GetComponent<GameListItem>().setDealerInformation(game.DealerName,game.DealerBet);

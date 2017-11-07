@@ -17,7 +17,7 @@ public class RegistorOrCancel : MonoBehaviour {
     public void OnClickRegistor()
     {
         GetPostFormBuilder builder = new GetPostFormBuilder();
-        var postData = builder.getRegistrationPostFormat(Email.text, Name.text);
+        var postData = builder.GetRegistrationPostFormat(Email.text, Name.text);
 
         GetPost getPost = transform.GetComponent<GetPost>();
 
@@ -39,7 +39,7 @@ public class RegistorOrCancel : MonoBehaviour {
             {
                 //Save player information to plyerPerfit
                 PlayerPerfController pCon = new PlayerPerfController();
-                PlayerPerfController.SaveRegistratedInformation(Name.text,Email.text,player.FriendCode);
+                PlayerPerfController.SaveRegistratedInformation(player.PlayerID,Name.text,Email.text,player.FriendCode);
                 OnClickCancel();
                 MessageWindow.setMessage("Welcome to Black Jack Game!");
                 MessageWindow.setActive(true);

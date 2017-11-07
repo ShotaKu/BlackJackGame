@@ -7,9 +7,9 @@ public class BetChangeSlider : MonoBehaviour {
 
     // Use this for initialization
     [SerializeField]
-    private Text BetUI;
+    private Text BetUI = null;
+
     public static BetChangeSlider Slider;
-    
     private Slider BetChanger;
 
     void Start ()
