@@ -11,6 +11,7 @@ public class RegistrationButton : MonoBehaviour {
 
     void Start()
     {
+        print("User id = "+PlayerPerfController.LoadPlayerID());
         string name = PlayerPerfController.LoadPlayerName();
         if (name != null)
         {

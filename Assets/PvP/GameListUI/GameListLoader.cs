@@ -25,6 +25,8 @@ public class GameListLoader : MonoBehaviour {
         ClearList();
         //Make get list to allow get
         GetPost getPost = transform.GetComponent<GetPost>();
+        if (getPost == null)
+            getPost = gameObject.AddComponent<GetPost>();
         Loading.startLoading();
         //Debug Mode -> GetAllArivedGame    Not Debuug -> GetAllArivedNoPlayerGame
         getPost.GET("http://blackjackgame-hybridappdev.azurewebsites.net/Game/SearchAllArriveGame", result =>
@@ -59,6 +61,7 @@ public class GameListLoader : MonoBehaviour {
             else
             {
                 //TODO: Show "No games opend"
+                print("No games");
                 NoGame.SetActive(true);
             }
 

@@ -8,59 +8,79 @@ namespace BlackJackClass
 {
     public class Card
     {
-        private int cardNubmer;
-        public enum Formats { Spades, Heart, Club, Diamond }
-        private Formats cardFormats;
+        private int number;
+        public enum Suit { Spades, Heart, Club, Diamond }
+        private Suit suit;
 
         public Card() { }
-        public Card(int number, Formats format)
+        public Card(int number, Suit format)
         {
-            cardNubmer = number;
-            cardFormats = format;
+            this.number = number;
+            suit = format;
         }
         public Card(int number, int format)
         {
-            cardNubmer = number;
-            cardFormats = getFormatByNumber(format);
+            this.number = number;
+            suit = getFormatByNumber(format);
         }
-
+        public Card(string stringCard)
+        {
+            stringCard = stringCard.Replace("[", "");
+            stringCard = stringCard.Replace("]", "");
+            string[] format = stringCard.Split(':');
+            suit = GetFormatByString(format[0]);
+            number = int.Parse(format[1]);
+        }
+        public static Suit GetFormatByString(string format)
+        {
+            Suit f = Suit.Club;
+            if (Suit.Spades.ToString() == format)
+                f = Suit.Spades;
+            else if (Suit.Diamond.ToString() == format)
+                f = Suit.Diamond;
+            else if (Suit.Heart.ToString() == format)
+                f = Suit.Heart;
+            else if (format != Suit.Spades.ToString())
+                Debug.LogError("Invarid Format");
+            return f;
+        }
         public int getNumber()
-        { return cardNubmer; }
+        { return number; }
 
         public string getNumberByString()
         {
             //char number = cardNubmer.ToString()[0];
-            string number = cardNubmer.ToString();
+            string number = this.number.ToString();
             //Debug.Log(cardNubmer.ToString()+" "+number.ToString());
-            if (cardNubmer == 1)
+            if (this.number == 1)
                 number = "A";
-            else if (cardNubmer == 11)
+            else if (this.number == 11)
                 number = "J";
-            else if (cardNubmer == 12)
+            else if (this.number == 12)
                 number = "Q";
-            else if (cardNubmer == 13)
+            else if (this.number == 13)
                 number = "K";
 
             return number;
         }
 
-        public Formats getFormats()
-        { return cardFormats; }
+        public Suit getFormats()
+        { return suit; }
 
         /// <summary>
         /// Return card format by input number. 0 = Spades, 1 = Harts, 2 = Clubs, 3 = Diamonds
         /// </summary>
         /// <param name="formatNumber">Digit 0 - 4</param>
         /// <returns></returns>
-        public Formats getFormatByNumber(int formatNumber)
+        public Suit getFormatByNumber(int formatNumber)
         {
-            Formats f = Formats.Spades;
+            Suit f = Suit.Spades;
             if (formatNumber == 1)
-                f = Formats.Heart;
+                f = Suit.Heart;
             else if (formatNumber == 2)
-                f = Formats.Club;
+                f = Suit.Club;
             else if (formatNumber == 3)
-                f = Formats.Diamond;
+                f = Suit.Diamond;
 
             return f;
         }
@@ -78,9 +98,10 @@ namespace BlackJackClass
             return cards;
         }
 
+
         public override string ToString()
         {
-            return "["+cardFormats+":"+cardNubmer+"]";
+            return "["+suit+":"+number+"]";
         }
     }
 }

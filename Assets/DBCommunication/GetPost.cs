@@ -20,6 +20,7 @@ public class GetPost : MonoBehaviour
     /// <returns></returns>
     public WWW GET(string url, Action<WWW> callBack = null)
     {
+        print("Connecting...");
         WWW www = new WWW(url);
         StartCoroutine(WaitForRequest(www,callBack));
         return www;
@@ -33,13 +34,14 @@ public class GetPost : MonoBehaviour
             form.AddField(post_arg.Key, post_arg.Value);
         }
         WWW www = new WWW(url, form);
+        print("Connecting...");
         StartCoroutine(WaitForRequest(www,callBack));
         return www;
     }
 
     private IEnumerator WaitForRequest(WWW www, Action<WWW> onSuccess = null)
     {
-        print("Connecting...");
+        //
         yield return www;
 
         // check for errors

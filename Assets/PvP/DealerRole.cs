@@ -4,26 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Player is Dealer in this Class
 /// </summary>
 public class DealerRole : MonoBehaviour {
-
-    private LoadCardMaterial OpponentCards = null;
-    private LoadCardMaterial PlayerCards = null;
-
-    private Text PlayerScore = null;
-    private Text OpponentScore = null;
-    private Text PlayerMoney = null;
-    private Text OpponentMoney = null;
-
-    private ButtonUI ControllerUI = null;
-    private ButtonUI RetryUI = null;
-    private ButtonUI ChangeBetUI = null;
-
-    private Animator ResultAnimator = null;
-    private DeckAnimation DeckAnimator = null;
+    
+    private GameItemsController items = null;
 
     FireWorksMaker effect = null;
     BlackJack.Result resultGame = BlackJack.Result.Draw;
@@ -33,20 +21,22 @@ public class DealerRole : MonoBehaviour {
     private Player Player;
     private Player Opponent;
     private BlackJack game;
+    private long gameID;
 
     void Start()
     {
         _PvP = this;
         print("Loaded");
-        OpponentCards = Canvas.getObject("GameItems").FindChild("DealerCards").GetComponent<LoadCardMaterial>();
-        PlayerCards = Canvas.getObject("GameItems").FindChild("MyCards").GetComponent<LoadCardMaterial>();
 
-        print(OpponentCards);
 
+        //print(OpponentCardchas);
         PlayerPerfController perfCon = new PlayerPerfController();
 
         Opponent = new Player();
         Player = perfCon.LoadPlayerInformation();
+        GameItemsController.SetActiveControllerUI(false);
+        GameItemsController.SetActiveRetryUI(false);
+
 
         //displayMoney();
 
@@ -63,30 +53,42 @@ public class DealerRole : MonoBehaviour {
 
         game = new BlackJack();
 
-        //PlayerHit();
-        //PlayerHit();
+        OpponentHit(false);
+        PlayerHit(false);
+        OpponentHit(false);
+        PlayerHit(false);
 
         //showOpponentFirstCardScore();
         //updatePlayerScore();
 
         string[] OpponentHand = GetOpponentHand();
-        CreateGame.CreateGameOnDB(transform.GetComponent<GetPost>(),GetPlayerHand(),Player.getHandTotal(),Player.getBet(),GetOpponentHand(),Opponent.getHandTotal(), response =>
-        {
-            GameResult result = ResponceFormBuilder.GetResult<GameResult>(response.text);
-            if (0 <= result.ErrorCode)
-            {
+        print(string.Join(",", GetOpponentHand()));
+        string[] PlayerHand = GetPlayerHand();
+        print(string.Join(",", GetPlayerHand()));
+        CreateGame.CreateGameOnDB(transform.GetComponent<GetPost>(), GetPlayerHand(), Player.getHandTotal(), Player.getBet(), GetOpponentHand(), Opponent.getHandTotal(), response =>
+             {
+                 print("Deal: Pass Create Game");
+                 GameResult result = ResponceFormBuilder.GetResult<GameResult>(response.text);
+                 if (0 <= result.ErrorCode)
+                 {
+                     gameID = result.GameID;
+                     print("Deal: No error. GameID = " + gameID);
+                     print("Start corutine");
+                     CheckUntil checking = transform.GetComponent<CheckUntil>();
+                     if (checking == null)
+                         checking = gameObject.AddComponent<CheckUntil>();
+                     //checking.SetCheckingTime(15,5);
+                     checking.CheckUntilGetResult(10, 5, JoinChecker.CheckJoinStatus(gameObject, gameID), JoinChecker.Loaded(() => DisplayAllCardsAndInformation()), JoinChecker.Timeout());
 
-            }
-            else
-            {
-                MessageWindow.setErrorMessage(result.Message);
-                MessageWindow.setActive(true);
-            }
-            print("Start corutine");
-            //CheckUntil checking = transform.GetComponent<CheckUntil>();
-            //checking.CheckUntilGetResult(0.5f, 2, JoinChecker.CheckJoinStatus(), JoinChecker.Loaded(), JoinChecker.Timeout());
+                 }
+                 else
+                 {
+                     MessageWindow.setErrorMessage(result.Message);
+                     MessageWindow.setActive(true);
+                 }
 
-        });
+                 //displayAllcards();
+             });
 
         if (Player.isBust())
         {
@@ -94,21 +96,19 @@ public class DealerRole : MonoBehaviour {
         }
 
     }
+    void DisplayAllCardsAndInformation()
+    {
+        GameItemsController.AddPlayerHandForDisplay(false, Player.GetHand());
+        GameItemsController.SetPlayerScoreForDisplay(Player.getHandTotal());
+        GameItemsController.SetPlayerInformation(Player);
+        GameItemsController.AddOpponentHandForDisplay(true,Opponent.GetHand());
+        GameItemsController.SetOpponentScoreForDisplay(-1);
+        GameItemsController.SetOpponentInformation(Opponent);
+    }
 
     public string[] GetOpponentHand()
     {
         return Card.CardsToString(Opponent.GetHand());
-    }
-
-    public int getPlayerMoney()
-    {
-        return Player.getMoney();
-    }
-
-    public void clearBothCards()
-    {
-        OpponentCards.clearCard();
-        PlayerCards.clearCard();
     }
 
     public string[] GetPlayerHand()
@@ -119,24 +119,24 @@ public class DealerRole : MonoBehaviour {
     public void Stand()
     {
         while (OpponentHit()) { }
-        OpponentCards.openAllCards();
-        showOpponentTotalScore();
+        //OpponentCards.openAllCards();
+        //showOpponentTotalScore();
         resultGame = BlackJack.Stand(ref Opponent, ref Player);
 
         switch (resultGame)
         {
             case BlackJack.Result.Win:
-                ResultAnimator.Play("Win", 0, 0);
+                //ResultAnimator.Play("Win", 0, 0);
                 effect.generateFireWorks();
                 break;
             case BlackJack.Result.Lose:
-                ResultAnimator.Play("Lose", 0, 0);
+                //ResultAnimator.Play("Lose", 0, 0);
                 break;
         }
 
         updateMoney();
-        ControllerUI.setActiveUI(false);
-        RetryUI.setActiveUI(true);
+        //ControllerUI.setActiveUI(false);
+        //RetryUI.setActiveUI(true);
 
     }
 
@@ -145,51 +145,37 @@ public class DealerRole : MonoBehaviour {
     public void resetResult()
     { resultGame = BlackJack.Result.Draw; }
 
-    public void updateMoney()
+    private void updateMoney()
     {
         int playerMoney = Player.getMoney();
         int opponentMoney = Opponent.getMoney();
-        PlayerMoney.text = "Money: " + playerMoney;
-        OpponentMoney.text = "Money: " + opponentMoney;
+        //PlayerMoney.text = "Money: " + playerMoney;
+        //OpponentMoney.text = "Money: " + opponentMoney;
         PlayerPerfController perfCon = new PlayerPerfController();
         perfCon.updateMoney(playerMoney);
     }
-    public void displayMoney()
-    {
-        int playerMoney = Player.getMoney();
-        int opponentMoney = Opponent.getMoney();
-        PlayerMoney.text = "Money: " + playerMoney;
-        OpponentMoney.text = "Money: " + opponentMoney;
-    }
-    public Animator getAnmation()
-    { return ResultAnimator; }
 
-    public bool OpponentHit()
+    public bool OpponentHit(bool withDisplay = false)
     {
-        if (Opponent.getHandTotal() <= 16)        //if hand is less than 11, Opponent have to hit (Opponent rule)
+        if (!Opponent.isBust())        
         {
             Card card = game.DrawCard();
             Opponent.addHand(card);    //So, draw a card
+            if(withDisplay)
+                GameItemsController.AddOpponentHandForDisplay(true,card);
             print(card);
-            OpponentCards.setCards(card, (Opponent.getHand().Count + 1), true);
-            DeckAnimator.DealerDraw();
-            return canOpponentHit();              //check Opponent is bust or not
+            
         }
-        else
-            return false;                       //never draw card!
+        return Opponent.isBust();
     }
-
-    public void setPlayerBet(int bet)
-    { Player.setBet(bet); }
 
     public static DealerRole getThisBattle()
     { return _PvP; }
-    public void updatePlayerScore()
-    { PlayerScore.text = getScoreText(Player); }
-    public void showOpponentFirstCardScore()
-    { OpponentScore.text = getScoreText(Opponent.getFirstCard()); }
-    public void showOpponentTotalScore()
-    { OpponentScore.text = getScoreText(Opponent); }
+    public void SetOpponentNameAndID(string name, long id)
+    {
+        Opponent.setName(name);
+        Opponent.Id = id;
+    }
     private string getScoreText(Player target)
     {
         string newScore = "**";
@@ -197,44 +183,22 @@ public class DealerRole : MonoBehaviour {
             newScore = "<color=red>" + newScore + "</color>";
         return newScore.Replace("**", target.getHandTotal() + " / 21");
     }
-    private string getScoreText(int score)
-    {
-        return score + " / 21";
-    }
 
     /// <summary>
     /// Add new card to player's hand
     /// </summary>
     /// <returns>return True if player can hit more (not bust yet)</returns>
-    public bool PlayerHit()
+    public void PlayerHit(bool withDisplay = false)
     {
         Card card = game.DrawCard();
         Player.addHand(card);
-        PlayerCards.setCards(card, (Opponent.getHand().Count + 1), false);
-        DeckAnimator.PlayerDraw();
-        updatePlayerScore();
-        OpponentHit();
-        //if (isOpponentHit)
-        //
-        //else
-
-        return canPlayerHit();
+        if(withDisplay)
+            GameItemsController.AddPlayerHandForDisplay(false,card);
+        //updatePlayerScore();
     }
 
-    public bool canPlayerHit()
-    { return !Player.isBust(); }
-    public bool canOpponentHit()
-    { return !Opponent.isBust(); }
-
-    public Player getPlayer()
-    { return Player; }
-
-    public void setActiveChangeBetUI(bool isActive)
+    public void SetOpponentPlayer(Player p)
     {
-        ChangeBetUI.setActiveUI(isActive);
-    }
-    public void setActiveRetryUI(bool isActive)
-    {
-        RetryUI.setActiveUI(isActive);
+        Opponent = p;
     }
 }

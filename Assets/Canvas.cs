@@ -5,9 +5,14 @@ public class Canvas : MonoBehaviour
 {
 
     static Canvas _canvas;
+    //private static Loading _load;
     void Start()
     {
         _canvas = this;
+        //Loading load = getObject("Loading").GetComponent<Loading>();
+        //load.gameObject.SetActive(true);
+        //load.gameObject.SetActive(false);
+        print("active?");
         //PlayerPerfController.SavePlayerID(5);
     }
 

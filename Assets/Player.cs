@@ -16,11 +16,19 @@ namespace BlackJackClass
     /// </summary>
     public class Player
     {
+        private long id;
         private string name;
         private int money;
         private int bet;
         private bool isDealer;
         private List<Card> hands = new List<Card>();
+
+        public long Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         // private LoadCardMaterial playerHand = null;     //Should not at here
 
         public Player() { }
@@ -55,6 +63,8 @@ namespace BlackJackClass
 
         public string getName()
         { return name; }
+        public void setName(string name)
+        { this.name=name; }
 
         public void addHand(Card c)
         {
@@ -132,7 +142,7 @@ namespace BlackJackClass
             return total;
         }
 
-        public int getFirstCard()               
+        public int getFirstCard()
         {
             int card = 0;
             if (hands.Count == 0)
@@ -173,5 +183,6 @@ namespace BlackJackClass
         {
             return hands.ToArray(); ;
         }
+
     }
 }

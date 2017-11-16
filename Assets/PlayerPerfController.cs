@@ -15,8 +15,10 @@ public class PlayerPerfController
     {
         //PlayerPrefs.DeleteAll();
         //PlayerPrefs.Save();
-        int playerMoney = PlayerPrefs.GetInt(PLAYER_MONEY_KEY, -1);
-        
+        long playerID = LoadPlayerID();
+        int playerMoney = LoadPlayerMoney();
+
+
         if (playerMoney == -1)
         {
             updateMoney(30000);
@@ -29,8 +31,14 @@ public class PlayerPerfController
             //ERROR
             playerName = "Guest Player";
         }
+        Player p = new Player(playerName, playerMoney);
+        p.Id = playerID;
+        return p;
+    }
 
-        return new Player(playerName,playerMoney);
+    public static int LoadPlayerMoney()
+    {
+        return PlayerPrefs.GetInt(PLAYER_MONEY_KEY, -1);
     }
 
     public static string LoadPlayerEmailAddress()

@@ -85,6 +85,7 @@
     <Compile Include="Assets\DBCommunication\Model\GameResult.cs" />
     <Compile Include="Assets\DBCommunication\Model\RegistrationResult.cs" />
     <Compile Include="Assets\DBCommunication\Model\ResponceFormBuilder.cs" />
+    <Compile Include="Assets\DBCommunication\PlayerConstructor.cs" />
     <Compile Include="Assets\ErrorWindowScripts\AcceptButton.cs" />
     <Compile Include="Assets\ErrorWindowScripts\MessageWindow.cs" />
     <Compile Include="Assets\FireBaseController.cs" />
@@ -94,13 +95,16 @@
     <Compile Include="Assets\PlayerPerfController.cs" />
     <Compile Include="Assets\PvP\CheckUntil.cs" />
     <Compile Include="Assets\PvP\DealerRole.cs" />
+    <Compile Include="Assets\PvP\GameItemsController.cs" />
     <Compile Include="Assets\PvP\GameListUI\GameListLoader.cs" />
     <Compile Include="Assets\PvP\GameListUI\ListUI.cs" />
     <Compile Include="Assets\PvP\JoinChecker.cs" />
+    <Compile Include="Assets\PvP\PlayerInformationUI.cs" />
     <Compile Include="Assets\PvP\PlayerRole.cs" />
     <Compile Include="Assets\PvP\PvP.cs" />
     <Compile Include="Assets\PvP\PvPDealButton.cs" />
     <Compile Include="Assets\PvP\PvPUIButtonManager.cs" />
+    <Compile Include="Assets\PvP\Role.cs" />
     <Compile Include="Assets\Resources\CardPrefab\Animation\DeckAnimation.cs" />
     <Compile Include="Assets\Resources\Prefab\AutoDestroy.cs" />
     <Compile Include="Assets\Resources\Prefab\FireWorksMaker.cs" />

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class LoadCardMaterial : MonoBehaviour {
 
-    public void setCards(Card card,int cardInHand, bool isRevers = false)
+    private int numberOfCards = 0;
+    private void SetNewCard(Card card, bool isRevers = false)
     {
         if (card != null)
         {
@@ -12,15 +13,22 @@ public class LoadCardMaterial : MonoBehaviour {
             newCard.transform.SetParent(transform, false);
 
             RectTransform pos = newCard.GetComponent<RectTransform>();
-
-            pos.localPosition = new Vector3(pos.localPosition.x,pos.localPosition.y,(-1*cardInHand));
+            numberOfCards++;
+            pos.localPosition = new Vector3(pos.localPosition.x,pos.localPosition.y,(-1* numberOfCards));
 
             if (isRevers)
                 pos.Rotate(new Vector3(0, 180, 0));
                 
         }
     }
-
+    public void SetNewCard(bool isRevers, params Card[] cards)
+    {
+        foreach(Card card in cards)
+        {
+            print("Added card = " + card);
+            SetNewCard(card,isRevers);
+        }
+    }
     public void openAllCards()
     {
         foreach (Transform card in transform)

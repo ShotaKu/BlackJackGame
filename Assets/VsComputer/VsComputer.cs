@@ -164,7 +164,7 @@ public class VsComputer : MonoBehaviour {
             Card card = game.DrawCard();
             Dealer.addHand(card);    //So, draw a card
             print(card);
-            DealerCards.setCards(card, (Dealer.getHand().Count + 1), true);
+            DealerCards.SetNewCard(true,card);
             DeckAnimator.DealerDraw();
             return canDealerHit();              //check dealer is bust or not
         }
@@ -203,7 +203,7 @@ public class VsComputer : MonoBehaviour {
     {
         Card card = game.DrawCard();
         Player.addHand(card);
-        PlayerCards.setCards(card, (Dealer.getHand().Count + 1), false);
+        PlayerCards.SetNewCard(false,card);
         DeckAnimator.PlayerDraw();
         updatePlayerScore();
         DealerHit();
