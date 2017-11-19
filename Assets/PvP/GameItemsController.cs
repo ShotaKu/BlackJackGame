@@ -18,6 +18,7 @@ public class GameItemsController : MonoBehaviour {
     //private static Text OpponentMoney = null;
 
     private static ButtonUI ControllerUI = null;
+
     private static ButtonUI RetryUI = null;
     private static ButtonUI ChangeBetUI = null;
 
@@ -101,6 +102,10 @@ public class GameItemsController : MonoBehaviour {
         OpponentInformation.SetID(p.Id);
         OpponentInformation.SetName(p.getName());
         OpponentInformation.SetMoney(p.getMoney());
+    }
+    public static void SetRole(string role)
+    {
+        ControllerUI.SetRole(role);
     }
     //TODO: Method for access LoadCardMaterial
 }

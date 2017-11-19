@@ -42,4 +42,15 @@ public class GetPostFormBuilder
 
         return format;
     }
+
+    public Dictionary<string, string> GetJoinGamePostFormat(long gameID, long playerID)
+    {
+        Dictionary<string, string> format = new Dictionary<string, string>
+        {
+            { "gameID" , gameID.ToString()},
+            { "playerID", playerID.ToString() }
+        };
+
+        return format;
+    }
 }

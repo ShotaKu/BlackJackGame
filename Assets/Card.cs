@@ -40,8 +40,8 @@ namespace BlackJackClass
                 f = Suit.Diamond;
             else if (Suit.Heart.ToString() == format)
                 f = Suit.Heart;
-            else if (format != Suit.Spades.ToString())
-                Debug.LogError("Invarid Format");
+            else if (format != Suit.Club.ToString())
+                Debug.LogError("Invarid Format = "+format);
             return f;
         }
         public int getNumber()
@@ -97,7 +97,18 @@ namespace BlackJackClass
             }
             return cards;
         }
+        public static Card[] StringToCards(string[] hand)
+        {
+            Card[] cards = new Card[hand.Length];
 
+            int i = 0;
+            foreach (string card in hand)
+            {
+                cards[i] = new Card(card);
+                i++;
+            }
+            return cards;
+        }
 
         public override string ToString()
         {

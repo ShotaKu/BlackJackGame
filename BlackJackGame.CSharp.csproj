@@ -93,12 +93,14 @@
     <Compile Include="Assets\Loading\Loading.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\PlayerPerfController.cs" />
+    <Compile Include="Assets\PvP\ActionChecker.cs" />
     <Compile Include="Assets\PvP\CheckUntil.cs" />
     <Compile Include="Assets\PvP\DealerRole.cs" />
     <Compile Include="Assets\PvP\GameItemsController.cs" />
     <Compile Include="Assets\PvP\GameListUI\GameListLoader.cs" />
     <Compile Include="Assets\PvP\GameListUI\ListUI.cs" />
     <Compile Include="Assets\PvP\JoinChecker.cs" />
+    <Compile Include="Assets\PvP\JoinGame.cs" />
     <Compile Include="Assets\PvP\PlayerInformationUI.cs" />
     <Compile Include="Assets\PvP\PlayerRole.cs" />
     <Compile Include="Assets\PvP\PvP.cs" />

@@ -14,15 +14,20 @@ public class HitButton : MonoBehaviour {
         if (!ThisBattle.PlayerHit())
             ThisBattle.Stand();
 
-
     }
+    private string role = "";
+
+    public string Role
+    {
+        get { return role; }
+        set { role = value; }
+    }
+
     public void OnClickPvP()
     {
-        PvP ThisPvP = PvP.getThisBattle();
+        //TODO: Dealer -> Check Until Player is not Thinking time
 
-        if (!ThisPvP.PlayerHit())
-            ThisPvP.Stand();
-
+        //TODO: Player -> Check until Thinking time
 
     }
 

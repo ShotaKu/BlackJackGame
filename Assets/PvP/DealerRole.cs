@@ -22,6 +22,7 @@ public class DealerRole : MonoBehaviour {
     private Player Opponent;
     private BlackJack game;
     private long gameID;
+    private static string OpponentLastAction = "";
 
     void Start()
     {
@@ -46,11 +47,6 @@ public class DealerRole : MonoBehaviour {
     public static bool isCreateGameSuccess = false;
     public void Deal()
     {
-
-        //ControllerUI.setActiveUI(true);
-        //RetryUI.setActiveUI(false);
-        //setActiveChangeBetUI(false);
-
         game = new BlackJack();
 
         OpponentHit(false);
@@ -58,37 +54,34 @@ public class DealerRole : MonoBehaviour {
         OpponentHit(false);
         PlayerHit(false);
 
-        //showOpponentFirstCardScore();
-        //updatePlayerScore();
-
         string[] OpponentHand = GetOpponentHand();
         print(string.Join(",", GetOpponentHand()));
         string[] PlayerHand = GetPlayerHand();
         print(string.Join(",", GetPlayerHand()));
         CreateGame.CreateGameOnDB(transform.GetComponent<GetPost>(), GetPlayerHand(), Player.getHandTotal(), Player.getBet(), GetOpponentHand(), Opponent.getHandTotal(), response =>
-             {
-                 print("Deal: Pass Create Game");
-                 GameResult result = ResponceFormBuilder.GetResult<GameResult>(response.text);
-                 if (0 <= result.ErrorCode)
-                 {
-                     gameID = result.GameID;
-                     print("Deal: No error. GameID = " + gameID);
-                     print("Start corutine");
-                     CheckUntil checking = transform.GetComponent<CheckUntil>();
-                     if (checking == null)
-                         checking = gameObject.AddComponent<CheckUntil>();
-                     //checking.SetCheckingTime(15,5);
-                     checking.CheckUntilGetResult(10, 5, JoinChecker.CheckJoinStatus(gameObject, gameID), JoinChecker.Loaded(() => DisplayAllCardsAndInformation()), JoinChecker.Timeout());
+        {
+            print("Deal: Pass Create Game");
+            GameResult result = ResponceFormBuilder.GetResult<GameResult>(response.text);
+            if (0 <= result.ErrorCode)
+            {
+                gameID = result.GameID;
+                print("Deal: No error. GameID = " + gameID);
+                print("Start corutine");
+                CheckUntil checking = transform.GetComponent<CheckUntil>();
+                if (checking == null)
+                    checking = gameObject.AddComponent<CheckUntil>();
+                //checking.SetCheckingTime(15,5);
+                checking.CheckUntilGetResult(10, 5, JoinChecker.CheckJoinStatus(gameObject, gameID), JoinChecker.CheckJoinLoaded(() => DisplayAllCardsAndInformation()), JoinChecker.CheckJoinTimeout());
+                GameItemsController.SetRole("Dealer");
+            }
+            else
+            {
+                MessageWindow.setErrorMessage(result.Message);
+                MessageWindow.setActive(true);
+            }
 
-                 }
-                 else
-                 {
-                     MessageWindow.setErrorMessage(result.Message);
-                     MessageWindow.setActive(true);
-                 }
-
-                 //displayAllcards();
-             });
+            //displayAllcards();
+        });
 
         if (Player.isBust())
         {
@@ -168,10 +161,13 @@ public class DealerRole : MonoBehaviour {
         }
         return Opponent.isBust();
     }
-
+    public void PassCard()
+    {
+        //TODO: Check until card success
+    }
     public static DealerRole getThisBattle()
     { return _PvP; }
-    public void SetOpponentNameAndID(string name, long id)
+    private void setOpponentNameAndID(string name, long id)
     {
         Opponent.setName(name);
         Opponent.Id = id;
@@ -200,5 +196,30 @@ public class DealerRole : MonoBehaviour {
     public void SetOpponentPlayer(Player p)
     {
         Opponent = p;
+    }
+    public static void SetOpponentNameAndID(string name, long id)
+    {
+        _PvP.setOpponentNameAndID(name,id);
+    }
+    public static void SetOpponentLastAction(string action)
+    {
+        OpponentLastAction = action;
+    }
+
+    public void CheckOpponentAction()
+    {
+        if (OpponentLastAction == "Hit Request")
+        {
+            PassCard();
+        }
+        else if (OpponentLastAction == "Double Request")
+        {
+            PassCard();
+            //TODO: Update bet
+        }
+        else if (OpponentLastAction == "Stand")
+        {
+            //Notthing to do?
+        }
     }
 }

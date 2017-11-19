@@ -6,12 +6,18 @@ public class StandButton : MonoBehaviour {
 
     public void OnClick()
     {
-
         VsComputer.getThisBattle().Stand();
+    }
+    private string role = "";
+
+    public string Role
+    {
+        get { return role; }
+        set { role = value; }
     }
 
     public void OnClickPvP()
     {
-        PvP.getThisBattle().Stand();
+        //TODO: Check until game finish (Dealer/Same)
     }
 }

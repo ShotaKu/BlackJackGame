@@ -29,6 +29,7 @@ public class PvPUIButtonManager : MonoBehaviour
         {
             Destroy(d);
         }
+        
         GameItems.AddComponent<PlayerRole>();
         gameList.EnableAndLoad();
     }

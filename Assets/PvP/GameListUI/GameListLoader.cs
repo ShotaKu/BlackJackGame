@@ -50,10 +50,10 @@ public class GameListLoader : MonoBehaviour {
                     //GameListItemBuilder gItemBuilder = new GameListItemBuilder();
                     foreach (GameResult game in lists.GameResults)
                     {
-                        print("Success");
+                        print("Success gameID = "+game.GameID);
                         RectTransform prefab = Instantiate(itemPrefab) as RectTransform;
-                        print("isPrefabNull = " + (prefab == null));
-                        prefab.GetComponent<GameListItem>().setDealerInformation(game.DealerName,game.DealerBet);
+                        //print("isPrefabNull = " + (prefab == null));
+                        prefab.GetComponent<GameListItem>().setDealerInformation(game.DealerName,game.DealerBet,game.GameID);
                         prefab.transform.SetParent(transform,false);
                     }
                 }
@@ -67,7 +67,8 @@ public class GameListLoader : MonoBehaviour {
 
             Loading.stopLoading();
 
-            Debug.Log(lists.GameResults[0].ErrorCode);
+            if(0<lists.Count())
+                Debug.Log(lists.GameResults[0].ErrorCode);
         });
     }
 

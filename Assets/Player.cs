@@ -66,22 +66,12 @@ namespace BlackJackClass
         public void setName(string name)
         { this.name=name; }
 
-        public void addHand(Card c)
+        public void addHand(params Card[] cards)
         {
-            //if (playerHand != null)
-            //{
-                //bool haveToReverse = false;
-                //if (isDealer)
-                //{
-                    //if (1 <= hands.Count)
-                        //haveToReverse = true;
-                //}
-                //Debug.Log("Have to revers? :" + haveToReverse);
-                //playerHand.setCards(c,(hands.Count+1),haveToReverse);
-            //}
-            
-            hands.Add(c);
-            //Debug.Log(hands[hands.Count-1].ToString());
+            foreach (Card card in cards)
+            {
+                hands.Add(card);
+            }
         }
 
         public void lose()          //Should not be here (change to be reduceMoney)

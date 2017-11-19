@@ -10,7 +10,6 @@ public class PvPDealButton : MonoBehaviour
     
     public void OnClick()
     {
-        
         DealerRole thisBattle = DealerRole.getThisBattle();
         thisBattle.Deal();
     }

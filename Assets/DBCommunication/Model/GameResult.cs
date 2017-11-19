@@ -51,5 +51,10 @@ namespace BlackJackGame.Models
     public class GameResultList
     {
         public List<GameResult> GameResults;
+
+        public int Count()
+        {
+            return GameResults.Count;
+        }
     }
 }
