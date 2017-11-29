@@ -5,10 +5,10 @@ __This application is demo version yet.__
 
 #### Scope of this project:
  - To make playable Black jack game in Windows and Android device.
- - The game have following functions
+ - The game have following functions for scope
     - Can play Black Jack with computer
-    - Can play Black Jack with friends by online mode (2 people)
-    - Can play party mode Black Jack with friends by online mode ( more than 3 people)
+    - Can play Black Jack with friends by online mode (2 people) **(Didn't achive)**
+    - Can play party mode Black Jack with friends by online mode ( more than 3 people) **(Didn't achive)**
     - Have ranking
  - User have to login facebook for personal authentication.
  
@@ -52,3 +52,6 @@ __This application is demo version yet.__
   
 #### Issue & Bugs:
  - Somewhere are Incompleated.
+
+#### Contributors:
+Shopan Kuroda 5618455
