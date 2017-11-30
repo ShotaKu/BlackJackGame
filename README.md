@@ -7,8 +7,6 @@ __This application is demo version yet.__
  - To make playable Black jack game in Windows and Android device.
  - The game have following functions for scope
     - Can play Black Jack with computer
-    - Can play Black Jack with friends by online mode (2 people) **(Didn't achive)**
-    - Can play party mode Black Jack with friends by online mode ( more than 3 people) **(Didn't achive)**
     - Have ranking
  - User have to login facebook for personal authentication.
  
@@ -49,9 +47,13 @@ __This application is demo version yet.__
   - **VsComputer.cs:**    Main code of vs computer mode.
   - **DealerRole.cs:**    Dealer action when choosing PvP mode (e.g. create new game, pass card to player)
   - **PlayerRole.cs:**    Player action when choosing PvP mode (e.g. Hit card request, get card)
-  
+#### Future
+ - Multiplayer mode(2 people)
+ - Multiplayer mode(more than 3 people)
 #### Issue & Bugs:
  - Somewhere are Incompleated.
+ - Cannot push exit button
+ - Cannot get back from connecton error to web service
 
 #### Contributors:
 Shopan Kuroda 5618455
